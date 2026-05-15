@@ -1,0 +1,117 @@
+.page-hero {
+  padding: 140px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+
+.products-section { padding: 60px 0 100px; }
+
+.products__filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.products__filter-btn {
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: all var(--transition);
+}
+
+.products__filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+.products__filter-btn--active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.product-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-3px);
+}
+
+.product-card__icon { font-size: 2.2rem; }
+
+.product-card__category {
+  font-size: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.product-card__name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.product-card__desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  font-weight: 300;
+  flex: 1;
+}
+
+.product-card__btn {
+  align-self: flex-start;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--accent);
+  transition: gap var(--transition);
+}
+
+.product-card__btn:hover { opacity: 0.75; }
+
+/* Skeleton */
+.products__loading {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.product-skeleton {
+  height: 240px;
+  background: linear-gradient(90deg, var(--bg-card) 25%, #1a1a2e 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 640px) {
+  .products__grid, .products__loading { grid-template-columns: 1fr; }
+}

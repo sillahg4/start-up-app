@@ -1,1 +1,22 @@
+version: 0.2
 
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+      python: 3.14
+    commands:
+      - cd frontend
+      - npm install
+  build:
+    commands:
+      - npm run build
+      - cd ..
+      - cp -r frontend/build ./static
+      - pip install -r requirements.txt
+
+artifacts:
+  files:
+    - '**/*'
+  exclude-paths:
+    - frontend/node_modules/**

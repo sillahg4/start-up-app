@@ -4,7 +4,7 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
-      python: 3.11
+      python: 3.14
     commands:
       - echo Installing frontend dependencies...
       - cd frontend && npm install

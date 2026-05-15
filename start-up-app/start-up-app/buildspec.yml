@@ -6,15 +6,9 @@ phases:
       nodejs: 18
       python: 3.14
     commands:
-      - pip install -r requirements.txt
-      - npm install --prefix frontend
-  build:
-    commands:
-      - npm run build --prefix frontend
-      - cp -r frontend/build ./static
-
-artifacts:
-  files:
-    - '**/*'
-  exclude-paths:
-    - frontend/node_modules/**
+      - echo "Current directory:"
+      - pwd
+      - echo "Files in root:"
+      - ls -la
+      - echo "Files in frontend:"
+      - ls -la frontend/

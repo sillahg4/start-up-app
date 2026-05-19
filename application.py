@@ -8,12 +8,27 @@ import json
 import logging
 import datetime
 import boto3
+import pymysql
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# ── Database Connection ────────────────────────────────────────────────────────
+def get_db_connection():
+    try:
+        connection = pymysql.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME"),
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        return connection
+    except Exception as e:
+        logger.error(f"Database connection failed: {e}")
+        return None
 # ── App Setup ──────────────────────────────────────────────────────────────────
 application = Flask(__name__, static_folder='static', static_url_path='')
 CORS(application)
@@ -50,7 +65,17 @@ def serve_react(path):
 # ── Health Check ───────────────────────────────────────────────────────────────
 @application.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status": "healthy", "timestamp": datetime.datetime.utcnow().isoformat()})
+    db_status = "connected"
+    conn = get_db_connection()
+    if conn is None:
+        db_status = "unavailable"
+    else:
+        conn.close()
+    return jsonify({
+        "status": "healthy",
+        "database": db_status,
+        "timestamp": datetime.datetime.utcnow().isoformat()
+    })
 
 # ── API: Company Info ──────────────────────────────────────────────────────────
 @application.route("/api/company", methods=["GET"])
